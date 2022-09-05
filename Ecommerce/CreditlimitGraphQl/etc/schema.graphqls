@@ -1,0 +1,68 @@
+type Query {
+  msGetCreditTransactionHistory(
+    filter: CreditTransactionAttributeFilterInput
+      @doc(
+        description: "Identifies which transaction attributes to search for and return."
+      )
+    pageSize: Int = 20
+      @doc(
+        description: "Specifies the maximum number of results to return at once. This attribute is optional."
+      )
+    currentPage: Int = 1
+      @doc(
+        description: "Specifies which page of results to return. The default value is 1."
+      )
+  ): MSCreditTransactions
+    @resolver(
+      class: "\\Ecommerce\\CreditlimitGraphQl\\Model\\Resolver\\CustomerCreditTransactionHistory"
+    )
+    @doc(description: "Credit transaction history of current customer")
+}
+
+input CreditTransactionAttributeFilterInput
+  @doc(
+    description: "CreditTransactionAttributeFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for."
+  ) {
+  transaction_id: FilterTypeInput @doc(description: "Filter by transaction ID")
+  customer_id: FilterTypeInput @doc(description: "Filter by customer ID")
+  order_increment_id: FilterTypeInput
+    @doc(description: "Filter by order increment id")
+  amount_credit: FilterTypeInput @doc(description: "Filter by amount_credit")
+  begin_balance: FilterTypeInput @doc(description: "Filter by begin_balance")
+  end_balance: FilterTypeInput @doc(description: "Filter by end_balance")
+  transaction_time: FilterTypeInput
+    @doc(description: "Filter by transaction_time")
+  status: FilterTypeInput @doc(description: "Filter by status")
+  spent_credit: FilterTypeInput @doc(description: "Filter by spent_credit")
+  received_credit: FilterTypeInput
+    @doc(description: "Filter by received_credit")
+}
+
+type MSCreditTransactions @doc(description: "List store credit transaction") {
+  items: [MSStoreCreditTransaction]
+    @doc(
+      description: "An array of transactions that match the specified search criteria."
+    )
+  page_info: SearchResultPageInfo
+    @doc(
+      description: "An object that includes the page_info and currentPage values specified in the query."
+    )
+  total_count: Int
+    @doc(description: "The total number of reward point transactions.")
+}
+
+type MSStoreCreditTransaction @doc(description: "MSStoreCreditTransaction") {
+  transaction_id: Int @doc(description: "Transaction ID")
+  customer_id: Int @doc(description: "Customer ID")
+  type_transaction_id: Int @doc(description: "Type Transaction ID")
+  detail_transaction: String @doc(description: "Detail Transaction")
+  order_increment_id: String @doc(description: "Order Increment Id")
+  amount_credit: Float @doc(description: "Amount Credit")
+  begin_balance: Float @doc(description: "Begin Balance")
+  end_balance: Float @doc(description: "End Balance")
+  transaction_time: String @doc(description: "Transaction Time")
+  customer_group_ids: String @doc(description: "Customer Group Ids")
+  status: String @doc(description: "Status")
+  spent_credit: Float @doc(description: "Spent Credit")
+  received_credit: Float @doc(description: "Received Credit")
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+  ~ Ecommerce
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ This source file is subject to the Ecommerce.com license that is
+  ~ available through the world-wide-web at this URL:
+  ~ http://www.ecommerce.com/license-agreement.html
+  ~
+  ~ DISCLAIMER
+  ~
+  ~ Do not edit or add to this file if you wish to upgrade this extension to newer
+  ~ version in the future.
+  ~
+  ~ @category    Ecommerce
+  ~ @package     Ecommerce_Creditlimit
+  ~ @copyright   Copyright (c) 2017 Ecommerce (http://www.ecommerce.com/)
+  ~ @license     http://www.ecommerce.com/license-agreement.html
+  ~
+  -->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--<update handle="1column"/>-->
+    <update handle="creditlimit_message"/>
+    <head>
+        <title>My Credit Transactions</title>
+        <css src="Ecommerce_Creditlimit::css/bootstrap.css"/>
+    </head>
+    <body>
+        <referenceBlock name="head.components">
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Ecommerce\Creditlimit\Block\Account\Navigation" name="creditlimit_navigator" before="-" template="Ecommerce_Creditlimit::creditlimit/navigation.phtml">
+                <action method="setNavigationTitle">
+                    <argument name="title" xsi:type="string" translate="true">Credit Transactions </argument>
+                </action>
+                <action method="addLink">
+                    <argument name="name" xsi:type="string">dashboard</argument>
+                    <argument name="path" xsi:type="string">customer/account</argument>
+                    <argument name="label" xsi:type="helper" helper="Ecommerce\Creditlimit\Helper\Account::getDashboardLabel"></argument>
+                    <argument name="disabled" xsi:type="string">0</argument>
+                    <argument name="order" xsi:type="string">10</argument>
+                </action>
+                <action method="addLink">
+                    <argument name="name" xsi:type="string">mycredit</argument>
+                    <argument name="path" xsi:type="string">creditlimit/index/index</argument>
+                    <argument name="label" xsi:type="helper" helper="Ecommerce\Creditlimit\Helper\Data::getCreditlimitLabel"></argument>
+                    <argument name="disabled" xsi:type="string">0</argument>
+                    <argument name="order" xsi:type="string">20</argument>
+                </action>
+                <action method="addLink">
+                    <argument name="name" xsi:type="string">sharecredit</argument>
+                    <argument name="path" xsi:type="string">creditlimit/index/share</argument>
+                    <argument name="label" xsi:type="helper" helper="Ecommerce\Creditlimit\Helper\Account::getSendCreditLabel"></argument>
+                    <argument name="disabled" xsi:type="helper" helper="Ecommerce\Creditlimit\Helper\Data::sendCredit"></argument>
+                    <argument name="order" xsi:type="string">30</argument>
+                </action>
+               
+            </block>
+        </referenceContainer>
+    </body>
+</page>

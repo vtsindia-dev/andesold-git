@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+  ~ Ecommerce
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ This source file is subject to the Ecommerce.com license that is
+  ~ available through the world-wide-web at this URL:
+  ~ http://www.ecommerce.com/license-agreement.html
+  ~
+  ~ DISCLAIMER
+  ~
+  ~ Do not edit or add to this file if you wish to upgrade this extension to newer
+  ~ version in the future.
+  ~
+  ~ @category    Ecommerce
+  ~ @package     Ecommerce_Creditlimit
+  ~ @copyright   Copyright (c) 2017 Ecommerce (http://www.ecommerce.com/)
+  ~ @license     http://www.ecommerce.com/license-agreement.html
+  ~
+  -->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceBlock name="render.product.prices">
+        <arguments>
+            <argument name="creditlimit" xsi:type="array">
+            	<item name="prices" xsi:type="array">
+                    <item name="final_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Ecommerce\Creditlimit\Pricing\Render\FinalPriceBox</item>
+                		<item name="render_template" xsi:type="string">Ecommerce_Creditlimit::product/price.phtml</item>
+                    </item>
+                    <item name="wishlist_configured_price" xsi:type="array">
+                        <item name="render_class" xsi:type="string">Ecommerce\Creditlimit\Pricing\Render\FinalPriceBox</item>
+                        <item name="render_template" xsi:type="string">Ecommerce_Creditlimit::product/price.phtml</item>
+                    </item>
+                </item>                
+            </argument>
+        </arguments>
+    </referenceBlock>
+</layout>

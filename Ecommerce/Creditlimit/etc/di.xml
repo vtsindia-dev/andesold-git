@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+  ~ Ecommerce
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ This source file is subject to the Ecommerce.com license that is
+  ~ available through the world-wide-web at this URL:
+  ~ http://www.ecommerce.com/license-agreement.html
+  ~
+  ~ DISCLAIMER
+  ~
+  ~ Do not edit or add to this file if you wish to upgrade this extension to newer
+  ~ version in the future.
+  ~
+  ~ @category    Ecommerce
+  ~ @package     Ecommerce_Creditlimit
+  ~ @copyright   Copyright (c) 2017 Ecommerce (http://www.ecommerce.com/)
+  ~ @license     http://www.ecommerce.com/license-agreement.html
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Ecommerce\Payment\Model\Payment\RefundType\AcceptedPayments">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="store_credit" xsi:type="string">store_credit</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="creditlimit_quote_item" type="Ecommerce\Creditlimit\Plugin\QuoteItem" sortOrder="100"/>
+    </type>
+    <!--<type name="Magento\Catalog\Model\Product">-->
+        <!--<plugin name="before_getOptionById" type="Ecommerce\Creditlimit\Plugin\Model\Product\Getoptionbyid"/>-->
+    <!--</type>-->
+
+    <!-- Begin - Add pricing price to price pool for product type is creditlimit -->
+    <virtualType name="Ecommerce\Creditlimit\Pricing\Price\Pool" type="Magento\Framework\Pricing\Price\Pool">
+        <arguments>
+            <argument name="prices" xsi:type="array">
+                <item name="wishlist_configured_price" xsi:type="string">Ecommerce\Creditlimit\Pricing\ConfiguredPrice\ConfigurableProduct</item>
+            </argument>
+            <argument name="target" xsi:type="object">Magento\Catalog\Pricing\Price\Pool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Ecommerce\Creditlimit\Pricing\Price\Collection" type="Magento\Framework\Pricing\Price\Collection">
+        <arguments>
+            <argument name="pool" xsi:type="object">Ecommerce\Creditlimit\Pricing\Price\Pool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\Pricing\PriceInfo\Factory">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="creditlimit" xsi:type="array">
+                    <item name="infoClass" xsi:type="string">Magento\Framework\Pricing\PriceInfo\Base</item>
+                    <item name="prices" xsi:type="string">Ecommerce\Creditlimit\Pricing\Price\Collection</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- End - Add pricing price to price pool for product type is creditlimit -->
+
+    <!-- Decrease discount value to show in total -->
+    <type name="Magento\SalesRule\Model\Quote\Discount">
+        <plugin name="creditlimit_salesrules_discount_fetch_after" type="Ecommerce\Creditlimit\Plugin\SalesRule\Quote\Discount" sortOrder="30"/>
+    </type>
+    <!-- Decrease discount value is showed when get total after load payment method-->
+    <!--<type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="creditlimit_payment_get_payment_information_after" type="Ecommerce\Creditlimit\Plugin\Checkout\PaymentInformationManagement" sortOrder="30"/>
+    </type>
+    &lt;!&ndash; Decrease discount value is showed when get total after estimate shipping method&ndash;&gt;
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="creditlimit_shipping_save_address_information_after" type="Ecommerce\Creditlimit\Plugin\Checkout\ShippingInformationManagement" sortOrder="30"/>
+    </type>
+    &lt;!&ndash; Decrease discount value is showed when get total after estimate shipping method&ndash;&gt;
+    <type name="Magento\Checkout\Model\TotalsInformationManagement">
+        <plugin name="creditlimit_calculate_total_after" type="Ecommerce\Creditlimit\Plugin\Checkout\TotalsInformationManagement" sortOrder="30"/>
+    </type>
+    &lt;!&ndash; Decrease discount value is showed when load cart page&ndash;&gt;
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="creditlimit_load_cart_page_after" type="Ecommerce\Creditlimit\Plugin\Checkout\DefaultConfigProvider" sortOrder="30"/>
+    </type>-->
+    <!-- Decrease discount value is showed when get cart totals-->
+    <type name="Magento\Quote\Model\Cart\CartTotalRepository">
+        <plugin name="creditlimit_get_cat_totals_after" type="Ecommerce\Creditlimit\Plugin\Quote\Cart\CartTotalRepository" sortOrder="30"/>
+    </type>
+    <!-- Ignore store credit product when calculating earning point -->
+    <type name="Ecommerce\Rewardpoints\Model\Total\Quote\Earning">
+        <plugin name="ignore_store_credit_product_when_earning_rwp" type="Ecommerce\Creditlimit\Plugin\Rewardpoints\Model\Total\Quote\Earning" sortOrder="30"/>
+    </type>
+
+    <preference for="Ecommerce\Creditlimit\Api\Data\TransactionInterface"
+                type="Ecommerce\Creditlimit\Model\Transaction"/>
+    <preference for="Ecommerce\Creditlimit\Api\Data\TransactionSearchResultsInterface"
+                type="Ecommerce\Creditlimit\Model\TransactionSearchResults"/>
+    <preference for="Ecommerce\Creditlimit\Api\TransactionRepositoryInterface"
+                type="Ecommerce\Creditlimit\Model\TransactionRepository"/>
+
+    <type name="Ecommerce\Webpos\Model\Source\Adminhtml\Payment\Method">
+        <arguments>
+            <argument name="methodWithoutConfig" xsi:type="array">
+                <item name="store_credit" xsi:type="string">Store Credit</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

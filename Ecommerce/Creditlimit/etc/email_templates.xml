@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+  ~ Ecommerce
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ This source file is subject to the Ecommerce.com license that is
+  ~ available through the world-wide-web at this URL:
+  ~ http://www.ecommerce.com/license-agreement.html
+  ~
+  ~ DISCLAIMER
+  ~
+  ~ Do not edit or add to this file if you wish to upgrade this extension to newer
+  ~ version in the future.
+  ~
+  ~ @category    Ecommerce
+  ~ @package     Ecommerce_Creditlimit
+  ~ @copyright   Copyright (c) 2017 Ecommerce (http://www.ecommerce.com/)
+  ~ @license     http://www.ecommerce.com/license-agreement.html
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="creditlimit_email_verify" label="Email Template Validate Sender Shared Credit" file="creditlimit/verify_code.html" type="html" module="Ecommerce_Creditlimit" area="frontend"/>
+    <template id="creditlimit_email_creditcode" label="Email Template Credit Code" file="creditlimit/credit_code.html" type="html" module="Ecommerce_Creditlimit" area="frontend"/>
+    <template id="creditlimit_email_notify" label="Email Template Notify To Customer" file="creditlimit/notify.html" type="html" module="Ecommerce_Creditlimit" area="frontend"/>
+    <template id="creditlimit_email_notify_success" label="Send message to customer when Credit is sent to friend" file="creditlimit/notify_success.html" type="html" module="Ecommerce_Creditlimit" area="frontend"/>
+</config>

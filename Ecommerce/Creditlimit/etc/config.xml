@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+  ~ Ecommerce
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ This source file is subject to the Ecommerce.com license that is
+  ~ available through the world-wide-web at this URL:
+  ~ http://www.ecommerce.com/license-agreement.html
+  ~
+  ~ DISCLAIMER
+  ~
+  ~ Do not edit or add to this file if you wish to upgrade this extension to newer
+  ~ version in the future.
+  ~
+  ~ @category    Ecommerce
+  ~ @package     Ecommerce_Creditlimit
+  ~ @copyright   Copyright (c) 2017 Ecommerce (http://www.ecommerce.com/)
+  ~ @license     http://www.ecommerce.com/license-agreement.html
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <creditlimit>
+            <general>
+                <enable>1</enable>
+                <enable_send_credit>0</enable_send_credit>
+                <sendverify>0</sendverify>
+            </general>
+            <spend>
+                <tax>1</tax>
+                <shipping>0</shipping>
+            </spend>
+            <display>
+                <toplink>1</toplink>
+            </display>
+            <email>
+                <verify>creditlimit_email_verify</verify>
+                <creditcode>creditlimit_email_code</creditcode>
+                <notify>creditlimit_email_notify</notify>
+                <sender>general</sender>
+                <notify_success>creditlimit_email_notify_success</notify_success>
+            </email>
+            <style_management>
+                <color_title>#FFFFFF</color_title>
+            </style_management>
+            <report>
+                <mtd_start>1</mtd_start>
+            </report>
+        </creditlimit>
+    </default>
+</config>
+

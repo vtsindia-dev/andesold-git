@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\StoreGraphQl\Model\Resolver\Store\StoreConfigDataProvider">
+        <arguments>
+            <argument name="extendedConfigData" xsi:type="array">
+                <item name="ecommerce_creditlimit_general_enable" xsi:type="string">creditlimit/general/enable</item>
+                <item name="ecommerce_creditlimit_general_enable_send_credit" xsi:type="string">creditlimit/general/enable_send_credit</item>
+                <item name="ecommerce_creditlimit_general_validate" xsi:type="string">creditlimit/general/validate</item>
+                <item name="ecommerce_creditlimit_spend_shipping" xsi:type="string">creditlimit/spend/shipping</item>
+                <item name="ecommerce_creditlimit_email_creditcode" xsi:type="string">creditlimit/email/creditcode</item>
+                <item name="ecommerce_creditlimit_email_verify" xsi:type="string">creditlimit/email/verify</item>
+                <item name="ecommerce_creditlimit_email_notify" xsi:type="string">creditlimit/email/notify</item>
+                <item name="ecommerce_creditlimit_email_notify_success" xsi:type="string">creditlimit/email/notify_success</item>
+                <item name="ecommerce_creditlimit_report_ytd_start" xsi:type="string">creditlimit/report/ytd_start</item>
+                <item name="ecommerce_creditlimit_report_mtd_start" xsi:type="string">creditlimit/report/mtd_start</item>
+                <item name="ecommerce_creditlimit_style_management_background_title" xsi:type="string">creditlimit/style_management/background_title</item>
+                <item name="ecommerce_creditlimit_style_management_color_title" xsi:type="string">creditlimit/style_management/color_title</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\GraphQl\Schema\Type\Entity\DefaultMapper">
+        <arguments>
+            <argument name="map" xsi:type="array">
+                <item name="catalog_product" xsi:type="array">
+                    <item name="creditlimit" xsi:type="string">StoreCreditProduct</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogGraphQl\Model\ProductInterfaceTypeResolverComposite">
+        <arguments>
+            <argument name="productTypeNameResolvers" xsi:type="array">
+                <item name="creditlimit_product_type_resolver" xsi:type="object">Ecommerce\CreditlimitGraphQl\Model\StoreCreditProductTypeResolver</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\QuoteGraphQl\Model\Cart\BuyRequest\BuyRequestBuilder">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="storecredit_options" xsi:type="object">Ecommerce\CreditlimitGraphQl\Model\Cart\BuyRequest\StoreCreditDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
